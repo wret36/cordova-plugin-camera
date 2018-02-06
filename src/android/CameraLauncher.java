@@ -48,6 +48,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.text.TextPaint;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -286,7 +292,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
     public void takePicture(int returnType, int encodingType)
     {
-           LOG.d(LOG_TAG, "HOHOHOHO");
         // Save the number of images currently on disk for later
         this.numPics = queryImgDB(whichContentStore()).getCount();
 
@@ -511,6 +516,38 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         // If sending base64 image back
         if (destType == DATA_URL) {
             bitmap = getScaledAndRotatedBitmap(sourcePath);
+
+            android.graphics.Bitmap.Config bitmapConfig =
+                bitmap.getConfig();
+            // set default bitmap config if none
+            if(bitmapConfig == null) {
+                bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+            }
+
+            // resource bitmaps are imutable, 
+            // so we need to convert it to mutable one
+            bitmap = bitmap.copy(bitmapConfig, true);
+                
+            Canvas canvas = new Canvas(bitmap);
+            // new antialised Paint
+
+            // new antialiased Paint
+            TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+            // text color - #3D3D3D
+            paint.setColor(Color.rgb(61, 61, 61));
+            // text size in pixels
+            paint.setTextSize(14);
+            // text shadow
+            paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+            // draw text to the Canvas center
+            Rect bounds = new Rect();
+            paint.getTextBounds("YES", 0, 3, bounds);
+
+            int x = (bitmap.getWidth() - bounds.width())/2;
+            int y = (bitmap.getHeight() + bounds.height())/2;
+                
+            canvas.drawText("YES", x, y, paint);
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.

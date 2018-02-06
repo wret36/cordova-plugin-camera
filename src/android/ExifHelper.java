@@ -179,6 +179,14 @@ public class ExifHelper {
         }
     }
 
+    public String getFormattedLatitude() {
+        return "sampleLAT"
+    }
+
+    public String getFormattedLatitude() {
+        return "sampleLONG"
+    }
+
     public void resetOrientation() {
         this.orientation = "" + ExifInterface.ORIENTATION_NORMAL;
     }
