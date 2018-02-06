@@ -547,8 +547,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             Rect bounds = new Rect();
             paint.getTextBounds("YES", 0, 3, bounds);
 
-            int x = (bitmap.getWidth() - bounds.width())/2;
-            int y = (bitmap.getHeight() + bounds.height())/2;
+            int x = (bitmap.getWidth() - bounds.right);
+            int y = (bitmap.getHeight() - bounds.bottom);
                 
             canvas.drawText("YES", x, y, paint);
 
