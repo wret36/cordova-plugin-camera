@@ -180,11 +180,11 @@ public class ExifHelper {
     }
 
     public String getFormattedLatitude() {
-        return "sampleLAT";
+        return this.gpsLatitude;
     }
 
     public String getFormattedLongitude() {
-        return "sampleLONG";
+        return this.gpsLongitude;
     }
 
     public void resetOrientation() {
