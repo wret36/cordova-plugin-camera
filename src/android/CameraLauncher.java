@@ -533,10 +533,10 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
             // new antialiased Paint
             TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-            // text color - #3D3D3D
-            paint.setColor(Color.rgb(61, 61, 61));
+            // text color - #3D3D3D 61, 61, 61
+            paint.setColor(Color.rgb(250, 0, 0));
             // text size in pixels
-            paint.setTextSize(14);
+            paint.setTextSize(50);
             // text shadow
             paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
