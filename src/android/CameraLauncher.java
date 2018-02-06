@@ -537,7 +537,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             // text color - #3D3D3D 61, 61, 61
             paint.setColor(Color.rgb(250, 0, 0));
             // text size in pixels
-            paint.setTextSize((int) (14 * scale));
+            paint.setTextSize((int) (14 * (bitmap.getWidth() / 2 )));
             // text shadow
             paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
