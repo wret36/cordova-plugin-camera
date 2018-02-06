@@ -183,7 +183,7 @@ public class ExifHelper {
         return "sampleLAT";
     }
 
-    public String getFormattedLatitude() {
+    public String getFormattedLongitude() {
         return "sampleLONG";
     }
 
