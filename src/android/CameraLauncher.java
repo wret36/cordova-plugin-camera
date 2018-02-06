@@ -547,10 +547,13 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             Rect bounds = new Rect();
             paint.getTextBounds("YES", 0, 3, bounds);
 
-            int x = (bitmap.getWidth() - bounds.right);
-            int y = (bitmap.getHeight() - bounds.bottom);
-                
-            canvas.drawText(exif.getFormattedLatitude(), 0, y, paint);
+            int latx = (bitmap.getWidth() - bounds.right);
+            int laty = (bitmap.getHeight() - bounds.bottom);
+            
+            canvas.drawText(exif.getFormattedLatitude(), 0, (laty - 5), paint);
+
+            paint.getTextBounds("YES", 0, 3, bounds);
+            canvas.drawText(exif.getFormattedLongitude(), 0, laty, paint);
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.
