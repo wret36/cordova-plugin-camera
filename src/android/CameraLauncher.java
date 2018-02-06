@@ -516,6 +516,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         // If sending base64 image back
         if (destType == DATA_URL) {
             bitmap = getScaledAndRotatedBitmap(sourcePath);
+            float scale = bitmap.getDensity();
 
             android.graphics.Bitmap.Config bitmapConfig =
                 bitmap.getConfig();
@@ -536,7 +537,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             // text color - #3D3D3D 61, 61, 61
             paint.setColor(Color.rgb(250, 0, 0));
             // text size in pixels
-            paint.setTextSize(50);
+            paint.setTextSize((int) (14 * scale));
             // text shadow
             paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
@@ -547,7 +548,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             int x = (bitmap.getWidth() - bounds.width())/2;
             int y = (bitmap.getHeight() + bounds.height())/2;
                 
-            canvas.drawText("YES", x, y, paint);
+            canvas.drawText("YES", 0, y, paint);
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.
