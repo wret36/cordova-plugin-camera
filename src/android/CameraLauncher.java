@@ -50,6 +50,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -534,10 +535,11 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
             // new antialiased Paint
             TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+            paint.setTypeface(Typeface.DEFAULT_BOLD);
             // text color - #3D3D3D 61, 61, 61
             paint.setColor(Color.rgb(250, 0, 0));
             // text size in pixels
-            paint.setTextSize((int) (14 * (bitmap.getWidth() / 2 )));
+            paint.setTextSize(120);
             // text shadow
             paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
@@ -548,7 +550,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             int x = (bitmap.getWidth() - bounds.width())/2;
             int y = (bitmap.getHeight() + bounds.height())/2;
                 
-            canvas.drawText("YES", 0, y, paint);
+            canvas.drawText("YES", x, y, paint);
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.
