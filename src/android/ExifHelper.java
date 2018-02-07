@@ -187,13 +187,13 @@ public class ExifHelper {
         return  "LNG :" + this.getFormattedLocation(this.gpsLongitude);
     }
 
-    private double getFormattedLocation(String location){
+    private String getFormattedLocation(String location){
         String[] DMS = location.split(",");
         
         return this.EXIFdivide(DMS[0]) + (this.EXIFdivide(DMS[1])/60) + (this.EXIFdivide(DMS[2])/3600);
     }
 
-    private double EXIFdivide(String location) {
+    private double EXIFdivide(String[] location) {
         String[] locPart = location[0].split("/");
         return Double.parseDouble(locPart[0]) / Double.parseDouble(locPart[1]);
     }
