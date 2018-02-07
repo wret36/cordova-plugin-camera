@@ -180,25 +180,31 @@ public class ExifHelper {
     }
 
     public String getFormattedLatitude() {
-        return  "LAT :" + this.getFormattedLocation(this.gpsLatitude);
+        String lat = "";
+        if (this.gpsLatitudeRef == "S") {
+             lat = "-";
+        }
+
+        return  "LAT :" + lat + this.getFormattedLocation(this.gpsLatitude);
     }
 
     public String getFormattedLongitude() {
-        return  "LNG :" + this.getFormattedLocation(this.gpsLongitude);
+        String lon = "";
+        if (this.gpsLongitudeRef == "W") {
+             lon = "-";
+        }
+
+        return  "LNG :" + lon + this.getFormattedLocation(this.gpsLongitude);
     }
 
     private String getFormattedLocation(String location){
         String[] DMS = location.split(",");
 
-        double l1 = this.EXIFdivide(DMS[0]);
-        double l2 = (this.EXIFdivide(DMS[1])/60);
-        double l3 = (this.EXIFdivide(DMS[2])/3600);
+        Double l1 = this.EXIFdivide(DMS[0]);
+        Double l2 = (this.EXIFdivide(DMS[1])/60);
+        Double l3 = (this.EXIFdivide(DMS[2])/3600);
 
-        String p1 = String.valueOf(l1);
-        String p2 = String.valueOf(l2);
-        String p3 = String.valueOf(l3);
-
-        return p1 + p2 + p3;
+        return Double.toString(l1 + l2 + l3);
     }
 
     private Double EXIFdivide(String location) {
