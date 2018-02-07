@@ -738,7 +738,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             String uriString = uri.toString();
             
             ExifHelper exif = new ExifHelper();
-            exif.createInFile(uriString);
+            exif.createInFile(fileLocation);
             exif.readExifData();
 
             // Get the path to the image. Makes loading so much easier.
@@ -797,7 +797,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                     canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
                     canvas.save(Canvas.ALL_SAVE_FLAG);
                     canvas.restore();
-                    
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
