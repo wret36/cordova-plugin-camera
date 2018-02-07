@@ -193,8 +193,8 @@ public class ExifHelper {
         return this.EXIFdivide(DMS[0]) + (this.EXIFdivide(DMS[1])/60) + (this.EXIFdivide(DMS[2])/3600);
     }
 
-    private double EXIFdivide(String[] location) {
-        String[] locPart = location[0].split("/");
+    private double EXIFdivide(String location) {
+        String[] locPart = location.split("/");
         return Double.parseDouble(locPart[0]) / Double.parseDouble(locPart[1]);
     }
 
