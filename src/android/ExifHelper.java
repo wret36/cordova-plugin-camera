@@ -189,14 +189,14 @@ public class ExifHelper {
 
     private String getFormattedLocation(String location){
         String[] DMS = location.split(",");
-        
-        Double l1 = this.EXIFdivide(DMS[0]);
-        Double l2 = (this.EXIFdivide(DMS[1])/60);
-        Double l3 = (this.EXIFdivide(DMS[2])/3600);
 
-        String p1 = Double.toString(l1);
-        String p2 = Double.toString(l2);
-        String p3 = Double.toString(l3);
+        double l1 = this.EXIFdivide(DMS[0]);
+        double l2 = (this.EXIFdivide(DMS[1])/60);
+        double l3 = (this.EXIFdivide(DMS[2])/3600);
+
+        String p1 = String.valueOf(l1);
+        String p2 = String.valueOf(l2);
+        String p3 = String.valueOf(l3);
 
         return p1 + p2 + p3;
     }
