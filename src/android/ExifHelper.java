@@ -180,12 +180,24 @@ public class ExifHelper {
     }
 
     public String getFormattedLatitude() {
-        return  "LAT :" + this.gpsLatitude;
+        return  "LAT :" + this.getFormattedLocation(this.gpsLatitude);
     }
 
     public String getFormattedLongitude() {
-        return  "LONG :" + this.gpsLongitude;
+        return  "LNG :" + this.getFormattedLocation(this.gpsLongitude);
     }
+
+    private double getFormattedLocation(String location){
+        String[] DMS = location.split(",");
+        
+        return this.EXIFdivide(DMS[0]) + (this.EXIFdivide(DMS[1])/60) + (this.EXIFdivide(DMS[2])/3600);
+    }
+
+    print double EXIFdivide(String location) {
+        String[] locPart = locationDetails[0].split("/");
+        return Double.parseDouble(locPart[0]) / Double.parseDouble(locPart[1]);
+    }
+
 
     public void resetOrientation() {
         this.orientation = "" + ExifInterface.ORIENTATION_NORMAL;
