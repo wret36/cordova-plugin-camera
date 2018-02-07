@@ -194,10 +194,9 @@ public class ExifHelper {
     }
 
     private double EXIFdivide(String location) {
-        String[] locPart = locationDetails[0].split("/");
+        String[] locPart = location[0].split("/");
         return Double.parseDouble(locPart[0]) / Double.parseDouble(locPart[1]);
     }
-
 
     public void resetOrientation() {
         this.orientation = "" + ExifInterface.ORIENTATION_NORMAL;
