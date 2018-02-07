@@ -184,7 +184,7 @@ public class ExifHelper {
         if (this.gpsLatitudeRef == "S") {
              lat = "-";
         }
-        if (this.gpsLatitude) {
+        if (this.gpsLatitude != null) {
             lat = lat + this.getFormattedLocation(this.gpsLatitude);
         } else {
             lat = "Not Availble.";
@@ -198,7 +198,7 @@ public class ExifHelper {
         if (this.gpsLongitudeRef == "W") {
              lon = "-";
         }
-        if (this.gpsLongitude) {
+        if (this.gpsLongitude != null) {
             lon = lon + this.getFormattedLocation(this.gpsLongitude);
         } else {
             lon = "Not Availble.";
