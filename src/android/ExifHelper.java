@@ -184,8 +184,13 @@ public class ExifHelper {
         if (this.gpsLatitudeRef == "S") {
              lat = "-";
         }
+        if (this.gpsLatitude) {
+            lat = lat + this.getFormattedLocation(this.gpsLatitude);
+        } else {
+            lat = "Not Availble.";
+        }
 
-        return  "LAT :" + lat + this.getFormattedLocation(this.gpsLatitude);
+        return  "LAT :" + lat;
     }
 
     public String getFormattedLongitude() {
@@ -193,8 +198,13 @@ public class ExifHelper {
         if (this.gpsLongitudeRef == "W") {
              lon = "-";
         }
+        if (this.gpsLongitude) {
+            lon = lon + this.getFormattedLocation(this.gpsLongitude);
+        } else {
+            lon = "Not Availble.";
+        }
 
-        return  "LNG :" + lon + this.getFormattedLocation(this.gpsLongitude);
+        return  "LNG :" + lon;
     }
 
     private String getFormattedLocation(String location){
@@ -203,7 +213,7 @@ public class ExifHelper {
         Double l1 = this.EXIFdivide(DMS[0]);
         Double l2 = (this.EXIFdivide(DMS[1])/60);
         Double l3 = (this.EXIFdivide(DMS[2])/3600);
-
+    
         return Double.toString(l1 + l2 + l3);
     }
 
