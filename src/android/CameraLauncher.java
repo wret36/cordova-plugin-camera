@@ -887,7 +887,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         Rect bounds = new Rect();
 
         paint.getTextBounds(exif.getFormattedLongitude(), 0, exif.getFormattedLongitude().length(), bounds);
-        
+
         // text size in pixels
         float desiredTextSize = 18 * (bitmap.getWidth() / 2) / bounds.width();
         paint.setTextSize(desiredTextSize);
@@ -895,7 +895,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
         int y = (bitmap.getHeight() - bounds.bottom);
 
-        canvas.drawText(exif.getDateTime, 0, y - 220, paint);
+        canvas.drawText(exif.getDateTime(), 0, y - 220, paint);
 
 
         paint.getTextBounds(exif.getFormattedLatitude(), 0, exif.getFormattedLatitude().length(), bounds);
