@@ -739,7 +739,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                         // exif.createInFile(uriString);
                         // exif.readExifData();
 
-                        bitmap = this.addWatermarks(bitmap);
+                        // bitmap = this.addWatermarks(bitmap);
                         this.processPicture(bitmap, this.encodingType);
                     // } catch (IOException e) {
                     //     e.printStackTrace();
