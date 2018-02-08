@@ -19,6 +19,9 @@
 package org.apache.cordova.camera;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.media.ExifInterface;
 
@@ -195,10 +198,17 @@ public class ExifHelper {
 
     public String getDateTime() {
         if (this.datetime != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss", Locale.ENGLISH);
-            LocalDate date = LocalDate.parse(this.datetime, formatter);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss ");
+            String dateTime = "";
+            try {  
+                Date parseDate = format.parse(this.datetime);
+                dateTime = dateFormat.format(parseDate);
+            } catch (ParseException e) {
+                e.printStackTrace();  
+            }
 
-            return "Date : " + date;
+            return "Date : " + dateTime;
         } else {
             return "Date : Not Available.";
         }
