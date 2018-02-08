@@ -724,11 +724,11 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                     bitmap = getScaledAndRotatedBitmap(uriString);
 
                     // String filePath = uriString.replace("file://", "");
-                    ExifHelper exif = new ExifHelper();
-                    exif.createInFile(uriString);
-                    exif.readExifData();
+                    // ExifHelper exif = new ExifHelper();
+                    // exif.createInFile(uriString);
+                    // exif.readExifData();
 
-                    bitmap = this.addWatermark(exif, bitmap);
+                    // bitmap = this.addWatermark(exif, bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -740,8 +740,18 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
                 // If sending base64 image back
                 if (destType == DATA_URL) {
+                    try {
+                        String filePath = uriString.replace("file://", "");
+                        ExifHelper exif = new ExifHelper();
+                        exif.createInFile(filePath);
+                        exif.readExifData();
+
+                        bitmap = this.addWatermark(exif, bitmap);
+                        this.processPicture(bitmap, this.encodingType);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     this.processPicture(bitmap, this.encodingType);
-                    
                 }
 
                 // If sending filename back
