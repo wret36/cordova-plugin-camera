@@ -889,7 +889,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         
         // text size in pixels
         float desiredTextSize = 20 * (bitmap.getWidth() / 2) / bounds.width();
-        paint.setTextSize(120);
+        paint.setTextSize(desiredTextSize);
         // text shadow
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
         int y = (bitmap.getHeight() - bounds.bottom);
