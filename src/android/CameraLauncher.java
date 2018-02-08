@@ -902,6 +902,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         } catch (IOException e) {
             LOG.d(LOG_TAG, "Exception while closing output stream.");
         }
+        
+        return bitmap;
     }
 
     private int exifToDegrees(int exifOrientation) {
