@@ -751,7 +751,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    this.processPicture(bitmap, this.encodingType);
+                    // this.processPicture(bitmap, this.encodingType);
                 }
 
                 // If sending filename back
