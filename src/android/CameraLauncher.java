@@ -895,11 +895,11 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
         int y = (bitmap.getHeight() - bounds.bottom);
 
-        canvas.drawText(exif.getDateTime(), 0, y - 220, paint);
+        canvas.drawText(exif.getDateTime(), 0, y - 80, paint);
 
 
         paint.getTextBounds(exif.getFormattedLatitude(), 0, exif.getFormattedLatitude().length(), bounds);
-        canvas.drawText(exif.getFormattedLatitude(), 0, y - 110, paint);
+        canvas.drawText(exif.getFormattedLatitude(), 0, y - 40, paint);
         
         paint.getTextBounds(exif.getFormattedLongitude(), 0, exif.getFormattedLongitude().length(), bounds);
         canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);

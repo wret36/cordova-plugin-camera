@@ -190,11 +190,18 @@ public class ExifHelper {
             lat = "Not Availble.";
         }
 
-        return  "LAT :" + lat;
+        return  "LAT : " + lat;
     }
 
     public String getDateTime() {
-        return this.datetime;
+        if (this.datetime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss", Locale.ENGLISH);
+            LocalDate date = LocalDate.parse(this.datetime, formatter);
+
+            return "Date : " + date;
+        } else {
+            return "Date : Not Available."
+        }
     }
 
     public String getFormattedLongitude() {
@@ -208,7 +215,7 @@ public class ExifHelper {
             lon = "Not Availble.";
         }
 
-        return  "LNG :" + lon;
+        return  "LNG : " + lon;
     }
 
     private String getFormattedLocation(String location){
