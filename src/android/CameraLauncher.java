@@ -769,10 +769,11 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 // If sending base64 image back
                 if (destType == DATA_URL) {
 
+                    String filePath = fileLocation.replace("file://", "");
                     ExifHelper exif = new ExifHelper();
-                    exif.createInFile(fileLocation);
+                    exif.createInFile(filePath);
                     exif.readExifData();
-                    
+
                     android.graphics.Bitmap.Config bitmapConfig =
                     bitmap.getConfig();
                     // set default bitmap config if none
