@@ -737,10 +737,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         else {
             String uriString = uri.toString();
             
-            ExifHelper exif = new ExifHelper();
-            exif.createInFile(fileLocation);
-            exif.readExifData();
-
             // Get the path to the image. Makes loading so much easier.
             String mimeType = FileHelper.getMimeType(uriString, this.cordova);
 
@@ -761,8 +757,24 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 Bitmap bitmap = null;
                 try {
                     bitmap = getScaledAndRotatedBitmap(uriString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (bitmap == null) {
+                    LOG.d(LOG_TAG, "I either have a null image path or bitmap");
+                    this.failPicture("Unable to create bitmap!");
+                    return;
+                }
+
+                // If sending base64 image back
+                if (destType == DATA_URL) {
+
+                    ExifHelper exif = new ExifHelper();
+                    exif.createInFile(fileLocation);
+                    exif.readExifData();
+                    
                     android.graphics.Bitmap.Config bitmapConfig =
-                        bitmap.getConfig();
+                    bitmap.getConfig();
                     // set default bitmap config if none
                     if(bitmapConfig == null) {
                         bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
@@ -798,17 +810,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                     canvas.save(Canvas.ALL_SAVE_FLAG);
                     canvas.restore();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (bitmap == null) {
-                    LOG.d(LOG_TAG, "I either have a null image path or bitmap");
-                    this.failPicture("Unable to create bitmap!");
-                    return;
-                }
-
-                // If sending base64 image back
-                if (destType == DATA_URL) {
                     this.processPicture(bitmap, this.encodingType);
                 }
 
