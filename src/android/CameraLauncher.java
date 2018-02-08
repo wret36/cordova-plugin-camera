@@ -518,42 +518,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         if (destType == DATA_URL) {
             bitmap = getScaledAndRotatedBitmap(sourcePath);
 
-            android.graphics.Bitmap.Config bitmapConfig =
-                bitmap.getConfig();
-            // set default bitmap config if none
-            if(bitmapConfig == null) {
-                bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-            }
-
-            // resource bitmaps are imutable, 
-            // so we need to convert it to mutable one
-            bitmap = bitmap.copy(bitmapConfig, true);
-                
-            Canvas canvas = new Canvas(bitmap);
-            // new antialised Paint
-
-            // new antialiased Paint
-            TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-            paint.setTypeface(Typeface.DEFAULT_BOLD);
-            // text color - #3D3D3D 61, 61, 61
-            paint.setColor(Color.rgb(250, 0, 0));
-            // text size in pixels
-            paint.setTextSize(120);
-            // text shadow
-            paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
-
-            // draw text to the Canvas center
-            Rect bounds = new Rect();
-            paint.getTextBounds("YES", 0, 3, bounds);
-
-            int y = (bitmap.getHeight() - bounds.bottom);
-            
-            canvas.drawText(exif.getFormattedLatitude(), 0, y - 100, paint);
-
-            paint.getTextBounds("YES", 0, 3, bounds);
-            canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
-            canvas.save(Canvas.ALL_SAVE_FLAG);
-            canvas.restore();
+            bitmap = this.addWatermark(exif, bitmap);
 
             if (bitmap == null) {
                 // Try to get the bitmap from intent.
@@ -769,48 +734,10 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 // If sending base64 image back
                 if (destType == DATA_URL) {
                     try {
-                        String filePath = uriString.replace("file://", "");
-                        ExifHelper exif = new ExifHelper();
-                        exif.createInFile(filePath);
-                        exif.readExifData();
-
-                        android.graphics.Bitmap.Config bitmapConfig =
-                        bitmap.getConfig();
-                        // set default bitmap config if none
-                        if(bitmapConfig == null) {
-                            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-                        }
-
-                        // resource bitmaps are imutable, 
-                        // so we need to convert it to mutable one
-                        bitmap = bitmap.copy(bitmapConfig, true);
-                            
-                        Canvas canvas = new Canvas(bitmap);
-                        // new antialised Paint
-
-                        // new antialiased Paint
-                        TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-                        paint.setTypeface(Typeface.DEFAULT_BOLD);
-                        // text color - #3D3D3D 61, 61, 61
-                        paint.setColor(Color.rgb(250, 0, 0));
-                        // text size in pixels
-                        paint.setTextSize(120);
-                        // text shadow
-                        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
-
-                        // draw text to the Canvas center
-                        Rect bounds = new Rect();
-                        paint.getTextBounds("YES", 0, 3, bounds);
-
-                        int y = (bitmap.getHeight() - bounds.bottom);
-                        
-                        canvas.drawText(exif.getFormattedLatitude(), 0, y - 100, paint);
-
-                        paint.getTextBounds("YES", 0, 3, bounds);
-                        canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
-                        canvas.save(Canvas.ALL_SAVE_FLAG);
-                        canvas.restore();
-
+                        // String filePath = uriString.replace("file://", "");
+                        // ExifHelper exif = new ExifHelper();
+                        // exif.createInFile(filePath);
+                        // exif.readExifData();
                         this.processPicture(bitmap, this.encodingType);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -929,6 +856,51 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             } else {
                 this.failPicture("Selection did not complete!");
             }
+        }
+    }
+
+    private Bitmap addWatermark(Exif exif, Bitmap bitmap) throws IOException {
+        try {
+            android.graphics.Bitmap.Config bitmapConfig =
+            bitmap.getConfig();
+            // set default bitmap config if none
+            if(bitmapConfig == null) {
+                bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+            }
+
+            // resource bitmaps are imutable, 
+            // so we need to convert it to mutable one
+            bitmap = bitmap.copy(bitmapConfig, true);
+                
+            Canvas canvas = new Canvas(bitmap);
+            // new antialised Paint
+
+            // new antialiased Paint
+            TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+            paint.setTypeface(Typeface.DEFAULT_BOLD);
+            // text color - #3D3D3D 61, 61, 61
+            paint.setColor(Color.rgb(250, 0, 0));
+            // text size in pixels
+            paint.setTextSize(120);
+            // text shadow
+            paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+            // draw text to the Canvas center
+            Rect bounds = new Rect();
+            paint.getTextBounds("YES", 0, 3, bounds);
+
+            int y = (bitmap.getHeight() - bounds.bottom);
+            
+            canvas.drawText(exif.getFormattedLatitude(), 0, y - 100, paint);
+
+            paint.getTextBounds("YES", 0, 3, bounds);
+            canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
+            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.restore();
+
+            return bitmap;
+        } catch (IOException e) {
+            LOG.d(LOG_TAG, "Exception while closing output stream.");
         }
     }
 
