@@ -21,6 +21,7 @@ package org.apache.cordova.camera;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import android.media.ExifInterface;
