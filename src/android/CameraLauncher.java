@@ -859,8 +859,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         }
     }
 
-    private Bitmap addWatermark(ExifHelper exif, Bitmap bitmap) {
-        try {
+    private Bitmap addWatermark(ExifHelper exif, Bitmap bitmap) throws IOException {
+        // try {
             android.graphics.Bitmap.Config bitmapConfig =
             bitmap.getConfig();
             // set default bitmap config if none
@@ -899,11 +899,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             canvas.restore();
 
             return bitmap;
-        } catch (IOException e) {
-            LOG.d(LOG_TAG, "Exception while closing output stream.");
-        }
-        
-        return bitmap;
+        // } catch (IOException e) {
+        //     LOG.d(LOG_TAG, "Exception while closing output stream.");
+        // }
     }
 
     private int exifToDegrees(int exifOrientation) {
