@@ -859,7 +859,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         }
     }
 
-    private Bitmap addWatermark(ExifHelper exif, Bitmap bitmap) throws IOException {
+    private Bitmap addWatermark(ExifHelper exif, Bitmap bitmap) {
         try {
             android.graphics.Bitmap.Config bitmapConfig =
             bitmap.getConfig();
