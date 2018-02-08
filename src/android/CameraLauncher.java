@@ -119,7 +119,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
     private boolean correctOrientation;     // Should the pictures orientation be corrected
     private boolean orientationCorrected;   // Has the picture's orientation been corrected
     private boolean allowEdit;              // Should we allow the user to crop the image.
-    private String watermarkText;
 
     protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
@@ -158,7 +157,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.encodingType = JPEG;
             this.mediaType = PICTURE;
             this.mQuality = 50;
-            this.watermarkText = "";
 
             //Take the values from the arguments if they're not already defined (this is tricky)
             this.destType = args.getInt(1);
@@ -171,7 +169,6 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.allowEdit = args.getBoolean(7);
             this.correctOrientation = args.getBoolean(8);
             this.saveToPhotoAlbum = args.getBoolean(9);
-            this.watermarkText = args.getString(10);
 
             // If the user specifies a 0 or smaller width/height
             // make it -1 so later comparisons succeed
@@ -888,22 +885,18 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
 
         // draw text to the Canvas center
         Rect bounds = new Rect();
-        paint.getTextBounds(this.watermarkText, 0,this.watermarkText.length(), bounds);
+
+        paint.getTextBounds(exif.getDateTime(), 0, exif.getDateTime().length(), bounds);
+
         // text size in pixels
         float desiredTextSize = 18 * (bitmap.getWidth() / 2) / bounds.width();
         paint.setTextSize(desiredTextSize);
-
-        int y = (bitmap.getHeight() - bounds.bottom);
         // text shadow
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+        int y = (bitmap.getHeight() - bounds.bottom);
 
-        canvas.drawText(this.watermarkText, 0, y - 120, paint);
-
-        paint.getTextBounds(exif.getDateTime(), 0, exif.getDateTime().length(), bounds);
-        // text size in pixels
-        desiredTextSize = 18 * (bitmap.getWidth() / 2) / bounds.width();
-        paint.setTextSize(desiredTextSize);
         canvas.drawText(exif.getDateTime(), 0, y - 80, paint);
+
 
         paint.getTextBounds(exif.getFormattedLatitude(), 0, exif.getFormattedLatitude().length(), bounds);
         canvas.drawText(exif.getFormattedLatitude(), 0, y - 40, paint);
