@@ -200,7 +200,7 @@ public class ExifHelper {
 
             return "Date : " + date;
         } else {
-            return "Date : Not Available."
+            return "Date : Not Available.";
         }
     }
 
