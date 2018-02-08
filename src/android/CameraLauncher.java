@@ -757,19 +757,8 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 Bitmap bitmap = null;
                 try {
                     bitmap = getScaledAndRotatedBitmap(uriString);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (bitmap == null) {
-                    LOG.d(LOG_TAG, "I either have a null image path or bitmap");
-                    this.failPicture("Unable to create bitmap!");
-                    return;
-                }
 
-                // If sending base64 image back
-                if (destType == DATA_URL) {
-
-                    String filePath = fileLocation.replace("file://", "");
+                    String filePath = uriString.replace("file://", "");
                     ExifHelper exif = new ExifHelper();
                     exif.createInFile(filePath);
                     exif.readExifData();
@@ -810,7 +799,17 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                     canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
                     canvas.save(Canvas.ALL_SAVE_FLAG);
                     canvas.restore();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (bitmap == null) {
+                    LOG.d(LOG_TAG, "I either have a null image path or bitmap");
+                    this.failPicture("Unable to create bitmap!");
+                    return;
+                }
 
+                // If sending base64 image back
+                if (destType == DATA_URL) {
                     this.processPicture(bitmap, this.encodingType);
                 }
 
