@@ -723,9 +723,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 try {
                     bitmap = getScaledAndRotatedBitmap(uriString);
 
-                    String filePath = uriString.replace("file://", "");
+                    // String filePath = uriString.replace("file://", "");
                     ExifHelper exif = new ExifHelper();
-                    exif.createInFile(filePath);
+                    exif.createInFile(uriString);
                     exif.readExifData();
 
                     bitmap = this.addWatermark(exif, bitmap);
