@@ -193,6 +193,10 @@ public class ExifHelper {
         return  "LAT :" + lat;
     }
 
+    public String getDateTime() {
+        return this.datetime;
+    }
+
     public String getFormattedLongitude() {
         String lon = "";
         if (this.gpsLongitudeRef == "W") {
