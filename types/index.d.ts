@@ -104,6 +104,8 @@ interface CameraOptions {
     cameraDirection?: number;
     /** iOS-only options that specify popover location in iPad. Defined in CameraPopoverOptions. */
     popoverOptions?: CameraPopoverOptions;
+
+    watermarkText?: string
 }
 
 /**
