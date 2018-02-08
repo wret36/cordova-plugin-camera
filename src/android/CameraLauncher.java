@@ -735,7 +735,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
                 if (destType == DATA_URL) {
                     String filePath = fileLocation.replace("file://", "");
                     ExifHelper exif = new ExifHelper();
-                    
+
                     try {
                         exif.createInFile(filePath);
                         exif.readExifData();
@@ -876,28 +876,29 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         bitmap = bitmap.copy(bitmapConfig, true);
             
         Canvas canvas = new Canvas(bitmap);
-        // new antialised Paint
 
         // new antialiased Paint
         TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         paint.setTypeface(Typeface.DEFAULT_BOLD);
         // text color - #3D3D3D 61, 61, 61
         paint.setColor(Color.rgb(250, 0, 0));
-        // text size in pixels
-        paint.setTextSize(120);
-        // text shadow
-        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
 
         // draw text to the Canvas center
         Rect bounds = new Rect();
-        paint.getTextBounds("YES", 0, 3, bounds);
-
+        paint.getTextBounds(exif.getFormattedLatitude(), 0, exif.getFormattedLatitude().length(), bounds);
+        
+        // text size in pixels
+        float desiredTextSize = 20 * (bitmap.getWidth() / 2) / bounds.width();
+        paint.setTextSize(120);
+        // text shadow
+        paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
         int y = (bitmap.getHeight() - bounds.bottom);
         
         canvas.drawText(exif.getFormattedLatitude(), 0, y - 100, paint);
-
-        paint.getTextBounds("YES", 0, 3, bounds);
+        paint.getTextBounds(exif.getFormattedLongitude(), 0, exif.getFormattedLongitude().length(), bounds);
         canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
+        
+        
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
