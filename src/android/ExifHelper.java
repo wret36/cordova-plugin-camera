@@ -191,7 +191,7 @@ public class ExifHelper {
         if (this.gpsLatitude != null) {
             lat = lat + this.getFormattedLocation(this.gpsLatitude);
         } else {
-            lat = "Not Availble.";
+            lat = "Not Available.";
         }
 
         return  "LAT : " + lat;
@@ -223,7 +223,7 @@ public class ExifHelper {
         if (this.gpsLongitude != null) {
             lon = lon + this.getFormattedLocation(this.gpsLongitude);
         } else {
-            lon = "Not Availble.";
+            lon = "Not Available.";
         }
 
         return  "LNG : " + lon;
