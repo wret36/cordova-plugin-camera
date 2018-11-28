@@ -119,7 +119,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
     private boolean correctOrientation;     // Should the pictures orientation be corrected
     private boolean orientationCorrected;   // Has the picture's orientation been corrected
     private boolean allowEdit;              // Should we allow the user to crop the image.
-    private String title;
+    private String watermarkText;
 
     protected final static String[] permissions = { Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE };
 
@@ -170,7 +170,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             this.allowEdit = args.getBoolean(7);
             this.correctOrientation = args.getBoolean(8);
             this.saveToPhotoAlbum = args.getBoolean(9);
-            this.title = args.getString(12);
+            this.watermarkText = args.getString(12);
 
             // If the user specifies a 0 or smaller width/height
             // make it -1 so later comparisons succeed
@@ -898,7 +898,7 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         int y = (bitmap.getHeight() - bounds.bottom);
            
            
-        canvas.drawText(this.title, 0, y - 120, paint);
+        canvas.drawText(this.watermarkText, 0, y - 120, paint);
 
         canvas.drawText(exif.getDateTime(), 0, y - 80, paint);
 
