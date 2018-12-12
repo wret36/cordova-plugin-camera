@@ -873,6 +873,9 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
             bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
         }
 
+        String watermarkTextSub1 = new String("");
+        String watermarkTextSub2 = new String("");
+
         // resource bitmaps are imutable, 
         // so we need to convert it to mutable one
         bitmap = bitmap.copy(bitmapConfig, true);
@@ -889,22 +892,37 @@ public class CameraLauncher extends CordovaPlugin implements MediaScannerConnect
         Rect bounds = new Rect();
 
         paint.getTextBounds(exif.getDateTime(), 0, exif.getDateTime().length(), bounds);
+        if (this.watermarkText.length() >= 30) {
+            watermarkTextSub1 = this.watermarkText.substring(0, 29);
+            watermarkTextSub2 = this.watermarkText.substring(29);
+        } else {
+            watermarkTextSub1 = this.watermarkText;
+        }
+        
+        if (watermarkTextSub2.length() > 0 && watermarkTextSub2.length() > 30) {
+            String temp = new String("qwertyuiopasdfghjklzxcvbnmqwer");
+            paint.getTextBounds(temp, 0, temp.length(), bounds);
+            watermarkTextSub2 = this.watermarkText.substring(29, 60).concat("...");
+        }
 
         // text size in pixels
-        float desiredTextSize = 18 * (bitmap.getWidth() / 2) / bounds.width();
+        float desiredTextSize = 12 * (bitmap.getWidth() / 2) / bounds.width();
         paint.setTextSize(desiredTextSize);
         // text shadow
         paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
         int y = (bitmap.getHeight() - bounds.bottom);
            
-           
-        canvas.drawText(this.watermarkText, 0, y - 120, paint);
+        if (watermarkTextSub1.length() > 0 && watermarkTextSub2.length() > 0) {
+            canvas.drawText(watermarkTextSub1, 0, y - 120, paint);
+            canvas.drawText(watermarkTextSub2, 0, y - 90, paint);
+        } else {
+            canvas.drawText(watermarkTextSub1, 0, y - 90, paint);
+        }
 
-        canvas.drawText(exif.getDateTime(), 0, y - 80, paint);
-
+        canvas.drawText(exif.getDateTime(), 0, y - 60, paint);
 
         paint.getTextBounds(exif.getFormattedLatitude(), 0, exif.getFormattedLatitude().length(), bounds);
-        canvas.drawText(exif.getFormattedLatitude(), 0, y - 40, paint);
+        canvas.drawText(exif.getFormattedLatitude(), 0, y - 30, paint);
         
         paint.getTextBounds(exif.getFormattedLongitude(), 0, exif.getFormattedLongitude().length(), bounds);
         canvas.drawText(exif.getFormattedLongitude(), 0, y, paint);
